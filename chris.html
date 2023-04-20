@@ -1,0 +1,236 @@
+  <!DOCTYPE html>
+  <html lang="fr">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>Créer ma signature mobile.club</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+      
+      <style>
+          *,body,h1{
+              font-family: 'Arial' !important;
+          }
+          
+          h1{font-weight:900;}
+          input{
+                    all:initial;
+              padding:12px 12px;
+              margin:8px 0;
+              border-radius: .5rem;
+        
+              font-family: 'Arial';
+              border: 1px rgba(0,0,0,.35) solid;
+              width: 300px;
+              background-color:white;
+              
+              
+          }
+          
+          .info{
+              background-color:#F6F4E8;
+              padding: 12px 12px;
+              border-radius: 12px;
+              margin-top:24px;
+              -webkit-user-select: none;
+              -moz-user-select: none; 
+              -ms-user-select: none;
+              -o-user-select: none;
+              
+          }
+          
+          #generate-signature{
+               all:initial;
+              font-size:18px;
+              background-color:#FFF95F;
+              border:1px solid black;
+              padding:12px 24px;
+              border-radius:200px;
+              box-shadow:4px 4px 0px black;
+              font-family: Arial;
+              font-weight:900;
+              text-align: center;
+              display: flex;
+              margin:0 auto;
+              margin-top:24px;
+              
+          }
+          
+          .notSelect{
+                -webkit-user-select: none !important;
+              -moz-user-select: none !important; 
+              -ms-user-select: none !important;
+              -o-user-select: none !important;
+              user-select:none !important;
+          }
+          
+          .overlay{
+              width: 632px;
+              height: 200px;
+              border:1px dashed black;
+              border-radius: 30px;
+              display: flex;
+              justify-content: center;
+              align-content: center;
+              align-items: center;
+              margin-top:32px;
+              background-color:white}
+                  
+          .msg{
+              font-weight: 900;
+              opacity: 0.2;
+          }
+      
+      </style>
+  </head>
+  
+  
+  
+  
+  
+  <body style="display: flex;align-content:center;justify-content: center; flex-direction:column;align-items:center;  padding-top:50px; background-color:#FEFDF9!important">
+  
+  
+      <img class="notSelect" style="width:150px" src="https://mobileclub-strapi-production.s3.eu-west-1.amazonaws.com/new_logo_a07090f6ed.png?updated_at=2023-01-10T11:03:22.395Z" alt="">
+      <h1 class="notSelect" style="padding:32px 0">Créé ta signature mobile.club</h1>
+
+
+   
+<form class="notSelect" id="signature-form" style="margin: 0 auto;">
+
+  <input class="notSelect" placeholder="Nom" type="text" id="name" name="name">
+
+  <input class="notSelect"  placeholder="Prénom" type="text" id="firstname" name="firstname"><br>
+ 
+  <input class="notSelect"  placeholder="Téléphone" type="text" maxlength="14" id="phone" name="phone">
+
+  <input class="notSelect" placeholder="Job title" type="text" id="position" name="position"><br>
+ 
+  <input class="notSelect" placeholder="e-mail" style="width:632px;" type="text" id="email" name="email"><br>
+  <button class="notSelect" type="submit" id="generate-signature">Générer la signature</button>
+</form>
+
+      <div class="info">Selectionne ta signature et copie-là avec <b>CMD + C</b></div>
+ 
+ 
+ <div class="overlay">
+ <h2 class="msg">Ta signature apparaitra ici</h2>
+  <div id="signature-output" style="margin-top:30px;"></div>
+      </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/[email protected]/dist/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>            
+      
+
+    
+  $(document).ready(function() {
+    $("#generate-signature").click(function(event) {
+      event.preventDefault();
+      var name = $("#name").val();
+         name = name.slice(0,1).toUpperCase() + name.slice(1);
+      var firstname = $("#firstname").val();
+    firstname = firstname.slice(0,1).toUpperCase() + firstname.slice(1);
+      var phone = $("#phone").val();
+        phone = phone.replace(/(\d{2})(?=\d)/g, "$1 ");
+      var position = $("#position").val();
+      var email = $("#email").val();
+        $(".msg").hide();
+      var signature =   `<table style="font-size: medium; font-family: Arial;" class="table__StyledTable-sc-1avdl6r-0 iasblw" cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr>
+            <td>
+                <table style="font-size: medium; font-family: Arial;" class="table__StyledTable-sc-1avdl6r-0 iasblw" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <table style="font-size: medium; font-family: Arial;" class="table__StyledTable-sc-1avdl6r-0 iasblw" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: center;" class="template1__ImageContainer-sc-nmby7a-0 jTxCHa"> <a href="https://mobile.club"><img src="https://mobileclub-strapi-production.s3.eu-west-1.amazonaws.com/new_logo_a07090f6ed.png?updated_at=2023-01-10T11:03:22.395Z" role="presentation" style="display: block; max-width: 128px;" class="image__StyledImage-sc-hupvqm-0 eLouvR" width="100"></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td width="46">
+                                <div></div>
+                            </td>
+                            <td style="padding: 0px; vertical-align: middle;">
+                                <h2 color="#000000" style="margin: 0px; font-size: 18px; color: rgb(0, 0, 0); font-weight: 600;" class="name__NameContainer-sc-1m457h3-0 jCjfGD"><span>${firstname}</span><span>&nbsp;</span><span>${name}</span></h2>
+                                <p color="#000000" font-size="medium" style="margin: 0px; color: rgb(0, 0, 0); font-size: 14px; line-height: 22px;" class="job-title__Container-sc-1hmtp73-0 ibpiyI"><span>${position}</span></p>
+                   
+                                <table style="padding-top:8px; font-size: medium; font-family: Arial;" class="table__StyledTable-sc-1avdl6r-0 iasblw" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                       <tr>
+                                            <td style="padding-right:0; color: rgb(0, 0, 0);"><a href="tel:${phone}" color="#000000" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;" class="contact-info__ExternalLink-sc-mmkjr6-2 dwaWtg"><span>${phone}</span></a></td>
+                                        </tr>
+                                        <tr>
+                                   
+                                            <td style="padding: 0px;"><a href="mailto:${email}" color="#000000" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;" class="contact-info__ExternalLink-sc-mmkjr6-2 dwaWtg"><span>${email}</span></a></td>
+                                        </tr>
+                                        <tr>
+                                             <td style="max-width:200px; padding-top: 10px;" width="200"><span style="display:inline-block; height:19px;"><!-- ngIf: showField('facebookURL') --><span ng-if="showField('facebookURL')" class="ng-scope"><a href="https://www.instagram.com/mobile.club/?hl=fr" target="_blank"><img alt="Instagram icon" style="border:0; height:19px; width:19px" ng-src="https://i.ibb.co/GTvswmx/Group-48096051.png" src="https://i.ibb.co/GTvswmx/Group-48096051.png " width="19" height="19" border="0"></a>&nbsp;&nbsp;&nbsp;</span><!-- end ngIf: showField('facebookURL') --><!-- ngIf: showField('linkedinURL') --><span ng-if="showField('linkedinURL')" class="ng-scope"><a href="https://www.tiktok.com/@mobileclub_" target="_blank"><img alt="Tiktok icon" style="border:0; height:19px; width:19px" ng-src="https://i.ibb.co/c8ySzYx/Group-48096050.png" src="https://i.ibb.co/c8ySzYx/Group-48096050.png" width="19" height="19" border="0"></a>&nbsp;&nbsp;&nbsp;</span><!-- end ngIf: showField('linkedinURL') --><!-- ngIf: showField('twitterURL') --><span ng-if="showField('twitterURL')" class="ng-scope"><a href="https://fr-fr.facebook.com/joinmobileclub/" target="_blank"><img alt="Facebook icon" style="border:0; height:19px; width:19px" ng-src="https://i.ibb.co/cbn8qCc/Group-48096049.png" src="https://i.ibb.co/cbn8qCc/Group-48096049.png" width="19" height="19" border="0"></a>&nbsp;&nbsp;&nbsp;</span><!-- end ngIf: showField('twitterURL') --><!-- ngIf: showField('youtubeURL') --><span ng-if="showField('youtubeURL')" class="ng-scope"><a href="https://www.linkedin.com/company/wearemobileclub/?originalSubdomain=fr" target="_blank"><img alt="Youtube icon" style="border:0; height:19px; width:19px" ng-src="https://i.ibb.co/NTz5YfJ/Group-48096052.png" src="https://i.ibb.co/NTz5YfJ/Group-48096052.png" width="19" height="19" border="0"></a>&nbsp;&nbsp;&nbsp;</span><!-- end ngIf: showField('youtubeURL') --><!-- ngIf: showField('instagramURL') --><!-- end ngIf: showField('instagramURL') --><!-- ngIf: showField('pinterestURL') --><!-- end ngIf: showField('pinterestURL') --></span>
+                    </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table style="font-size: medium; font-family: Arial;" class="table__StyledTable-sc-1avdl6r-0 iasblw" cellspacing="0" cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td height="30"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>`;
+        
+      $("#signature-output").html(signature);
+    });
+  });
+    
+
+    
+</script>      
+  </body>
+  </html>
+   
+   
+   
+   
+   
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
