@@ -249,8 +249,9 @@
       />
 
       <input
+        disabled
         class="notSelect"
-        placeholder="Lien URL"
+        placeholder="https://invest.tudigo.co/mobile.club"
         id="cta"
         name="cta"
         type="text"
@@ -312,8 +313,7 @@
           phone = phone.replace(/(\d{2})(?=\d)/g, "$1 ");
           var position = $("#position").val();
           var lienRdv = $("#checkbox").is(":checked")
-            ? '<a id="lien-rdv" href="' +
-              $("#cta").val() +
+            ? '<a id="lien-rdv" href=" https://invest.tudigo.co/mobile.club' +
               '"><img style="margin-top:20px" width="400" height="130" style="objectif-fit:contain" src="https://www.dropbox.com/s/09dm9pzevqacbui/img-sign.png?dl=1" alt="Devenir investisseur" border="0"></a>'
             : "";
 
