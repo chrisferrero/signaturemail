@@ -200,11 +200,11 @@
       Créé ta signature mobile.club
     </h1>
 
-    <label class="toggle">
+    <!-- <label class="toggle">
       <input id="checkbox" class="toggle-checkbox" type="checkbox" />
       <div class="toggle-switch"></div>
       <span class="toggle-label">Signature avec image + lien</span>
-    </label>
+    </label> -->
 
     <form class="notSelect" id="signature-form" style="margin: 0 auto">
       <input
@@ -248,14 +248,14 @@
         name="email"
       />
 
-      <input
+      <!-- <input
         disabled
         class="notSelect"
         placeholder="https://invest.tudigo.co/mobile.club"
         id="cta"
         name="cta"
         type="text"
-      />
+      /> -->
 
       <button class="notSelect" type="submit" id="generate-signature">
         Générer la signature
@@ -312,10 +312,10 @@
           var phone = $("#phone").val();
           phone = phone.replace(/(\d{2})(?=\d)/g, "$1 ");
           var position = $("#position").val();
-          var lienRdv = $("#checkbox").is(":checked")
-            ? '<a id="lien-rdv" href=" https://invest.tudigo.co/mobile.club' +
-              '"><img style="margin-top:20px" width="400" height="130" style="objectif-fit:contain" src="https://www.dropbox.com/s/09dm9pzevqacbui/img-sign.png?dl=1" alt="Devenir investisseur" border="0"></a>'
-            : "";
+          // var lienRdv = $("#checkbox").is(":checked")
+          //   ? '<a id="lien-rdv" href=" https://invest.tudigo.co/mobile.club' +
+          //     '"><img style="margin-top:20px" width="400" height="130" style="objectif-fit:contain" src="https://www.dropbox.com/s/09dm9pzevqacbui/img-sign.png?dl=1" alt="Devenir investisseur" border="0"></a>'
+          //   : "";
 
           var email = $("#email").val();
           var cta = $("#cta").val();
@@ -323,8 +323,7 @@
           $("#copy-btn").show();
           $("#overlay").show();
 
-          var signature =
-            `<table style="font-size: medium; font-family: Arial;" class="table__StyledTable-sc-1avdl6r-0 iasblw" cellspacing="0" cellpadding="0">
+          var signature = `<table style="font-size: medium; font-family: Arial;" class="table__StyledTable-sc-1avdl6r-0 iasblw" cellspacing="0" cellpadding="0">
     <tbody>
         <tr>
             <td>
@@ -376,7 +375,7 @@
     
     </tbody>
 </table>
-` + lienRdv;
+`;
 
           $("#signature-to-copy").html(signature);
         });
@@ -403,7 +402,6 @@
         });
 
         $("#cta").hide();
-        $("#lien-rdv").css("display", "none");
         $("#email").width(630.5);
 
         $("#checkbox").change(function () {
