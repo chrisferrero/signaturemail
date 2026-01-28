@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Signature Mobile Club</title>
+    <style>
+        /* --- CSS GLOBAL --- */
+        :root {
+            --primary-color: #6366f1;
+            --bg-color: #f3f4f6;
+            --text-color: #1f2937;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            background: url('https://mobileclub-strapi-production.s3.eu-west-1.amazonaws.com/bg_1d4b41ac58.png');
+            background-size: contain;
+            flex-direction: column;
+        }
+
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            flex: 1 1 450px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #6366F1;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* --- FORMULAIRE --- */
+        .form-group { margin-bottom: 15px; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        input[type="text"], input[type="email"], input[type="url"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .optional-tag {
+            font-size: 0.8em;
+            color: #9ca3af;
+            font-weight: normal;
+        }
+
+        /* --- SWITCH BUTTON --- */
+        .switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--primary-color); }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        /* --- PREVIEW --- */
+        .preview-container {
+            background-color: #fff;
+            border: 1px dashed #d1d5db;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            overflow-x: auto;
+        }
+
+        .btn-copy {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 25px;
+            transition: 0.2s;
+        }
+        .btn-copy:hover { background-color: #4f46e5; }
+        .helper-text { text-align: center; color: #6b7280; font-size: 0.85rem; margin-top: 10px;}
+        
+        .logo { text-align: center; margin-bottom: 12px; margin-top: 24px; }
+    </style>
+</head>
+<body>
+
+  <div class="logo">
+    <img src="https://mobileclub-strapi-production.s3.eu-west-1.amazonaws.com/logo_mc_et_cleal_e51cb0a0cb.png" alt="Mobile Club Logo" width="400">
+    <h1 style="text-align: center; color:white; font-size: 1.5rem; margin-top: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Générateur de Signature</h1>
+  </div>
+
+<div class="main-container">
+
+    <div class="card">
+        <h2>Vos Coordonnées</h2>
+        <form id="sig-form">
+            <div style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Prénom</label>
+                    <input type="text" id="firstName" placeholder="Ex: Thomas">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Nom</label>
+                    <input type="text" id="lastName" placeholder="Ex: Dupont">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Poste</label>
+                <input type="text" id="jobTitle" placeholder="Ex: Account Manager">
+            </div>
+
+            <div class="form-group">
+                <label>Téléphone <span class="optional-tag"></span></label>
+                <input type="text" id="phone" placeholder="06 12 34 56 78">
+            </div>
+
+            <div class="form-group">
+                <label>Mail</label>
+                <input type="email" id="email" placeholder="prenom@mobile.club">
+            </div>
+            
+            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 25px 0;">
+             
+            <div class="form-group">
+                <label>Lien Logo Mobile Club</label>
+                <input type="url" id="logo1Url" value="https://mobile.club">
+            </div>
+            <div class="form-group">
+                <label>Lien Logo Cleaq</label>
+                <input type="url" id="logo2Url" value="https://cleaq.com">
+            </div>
+
+            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 25px 0;">
+
+            <div class="switch-container">
+                <span style="font-weight: 600; color: #374151;">Afficher la bannière ?</span>
+                <label class="switch">
+                    <input type="checkbox" id="showBanner" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Aperçu</h2>
+        <div class="preview-container">
+            
+            <div id="signature-wrapper">
+                <table cellpadding="0" cellspacing="0" border="0" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #000000; width: 100%; max-width: 600px;">
+                    <tbody>
+                        <tr>
+                            <td valign="top" style="width: 50px; padding-right: 15px; border-right: 2px solid #e0e0e0;">
+                                <a href="#" id="prev-link1" target="_blank" style="text-decoration: none; display: block; margin-bottom: 6px;">
+                                    <img src="https://mobileclub-strapi-production.s3.eu-west-1.amazonaws.com/Frame_1321315409_afe0784fe8.png" width="30" height="30" style="display: block; border-radius: 4px;" alt="mobile.club">
+                                </a>
+                                <a href="#" id="prev-link2" target="_blank" style="text-decoration: none; display: block;">
+                                    <img src="https://mobileclub-strapi-production.s3.eu-west-1.amazonaws.com/Frame_1321315410_9ed22225f5.png" width="30" height="30" style="display: block; border-radius: 4px;" alt="cleaq">
+                                </a>
+                            </td>
+                            
+                            <td valign="top" style="padding-left: 15px;">
+                                <div style="font-size: 18px; font-weight: bold; margin-bottom: 5px;">
+                                    <span id="prev-fname">Prénom</span> <span id="prev-lname">Nom</span>
+                                </div>
+                                <div id="prev-job" style="margin-bottom: 10px; font-size: 16px; color: black">Poste</div>
+                                
+                                <div id="prev-phone-box" style="margin-bottom: 2px;">
+                                    <a id="prev-phone-link" href="#" style="text-decoration: none; color:black; font-weight: normal;">
+                                        <span id="prev-phone"></span>
+                                    </a>
+                                </div>
+                                
+                                <div>
+                                    <a id="prev-email-link" href="#" style="text-decoration: none; color:black">
+                                        <span id="prev-email">email@mobile.club</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr id="prev-banner-row">
+                            <td colspan="2" style="padding-top: 25px;">
+                                
+                                    <img src="https://mobileclub-strapi-production.s3.eu-west-1.amazonaws.com/M_Cgorup_c3f2318638.png" alt="Banner" width="400" style="width: 100%; max-width: 400px; height: auto; display: block; border-radius: 8px;">
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        
+        <button class="btn-copy" id="copyBtn">Copier la signature</button>
+        <p class="helper-text">Allez ensuite dans Gmail/Outlook et faites "Coller" (Ctrl+V ou Cmd+V).</p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- 0. FONCTION DE FORMATAGE TELEPHONE ---
+        function formatFrenchPhoneNumber(input) {
+            // 1. Ne garder que les chiffres
+            let digits = input.replace(/\D/g, '');
+
+            // Si vide, retourner vide
+            if (!digits) return '';
+
+            // 2. Gestion du préfixe
+            // Si ça commence par 0, on remplace par 33
+            if (digits.startsWith('0')) {
+                digits = '33' + digits.substring(1);
+            }
+            // Si ça ne commence pas par 33 (ex: l'utilisateur tape 612...), on ajoute 33
+            else if (!digits.startsWith('33')) {
+                digits = '33' + digits;
+            }
+
+            // 3. Formatage Visuel (+33 X XX XX XX XX)
+            // On découpe la chaîne pour insérer les espaces
+            let formatted = '+33';
+            
+            if (digits.length > 2) {
+                // Le premier chiffre après 33 (ex: le 6 ou le 7)
+                formatted += ' ' + digits.substring(2, 3);
+            }
+            if (digits.length > 3) {
+                // Les paires suivantes
+                let remaining = digits.substring(3);
+                // Ajoute un espace tous les 2 caractères
+                formatted += ' ' + remaining.match(/.{1,2}/g).join(' ');
+            }
+
+            return formatted;
+        }
+
+
+        // --- 1. INITIALISATION ET VARIABLES ---
+        const fields = {
+            fn: document.getElementById('firstName'),
+            ln: document.getElementById('lastName'),
+            job: document.getElementById('jobTitle'),
+            ph: document.getElementById('phone'),
+            em: document.getElementById('email'),
+            l1: document.getElementById('logo1Url'),
+            l2: document.getElementById('logo2Url'),
+            bannerToggle: document.getElementById('showBanner')
+        };
+
+        const display = {
+            fn: document.getElementById('prev-fname'),
+            ln: document.getElementById('prev-lname'),
+            job: document.getElementById('prev-job'),
+            ph: document.getElementById('prev-phone'),
+            phBox: document.getElementById('prev-phone-box'),
+            phLink: document.getElementById('prev-phone-link'),
+            em: document.getElementById('prev-email'),
+            emLink: document.getElementById('prev-email-link'),
+            l1Link: document.getElementById('prev-link1'),
+            l2Link: document.getElementById('prev-link2'),
+            bannerRow: document.getElementById('prev-banner-row')
+        };
+
+        // --- 2. FONCTION DE MISE A JOUR (UPDATE) ---
+        function update() {
+            display.fn.textContent = fields.fn.value || "Prénom";
+            display.ln.textContent = fields.ln.value || "Nom";
+            display.job.textContent = fields.job.value || "Poste";
+            display.em.textContent = fields.em.value || "email@mobile.club";
+            display.emLink.href = 'mailto:' + fields.em.value;
+            
+            // --- GESTION DU TELEPHONE AMÉLIORÉE ---
+            if(!fields.ph.value) {
+                display.phBox.style.display = 'none';
+            } else {
+                display.phBox.style.display = 'block';
+                
+                // A. On formate le texte pour l'affichage (+33 6 XX XX XX XX)
+                const prettyPhone = formatFrenchPhoneNumber(fields.ph.value);
+                display.ph.textContent = prettyPhone;
+                
+                // B. On formate le lien pour le clic (tel:+336XXXXXXXX) sans espaces
+                // On enlève tous les espaces du "prettyPhone" pour le lien technique
+                const linkPhone = prettyPhone.replace(/\s+/g, '');
+                display.phLink.href = 'tel:' + linkPhone;
+            }
+
+            // Liens Logos
+            display.l1Link.href = fields.l1.value || '#';
+            display.l2Link.href = fields.l2.value || '#';
+
+            // Bannière
+            if (fields.bannerToggle.checked) {
+                display.bannerRow.style.display = 'table-row';
+            } else {
+                display.bannerRow.style.display = 'none';
+            }
+        }
+
+        // Ecouteurs d'événements
+        Object.values(fields).forEach(input => {
+            input.addEventListener('input', update);
+            input.addEventListener('change', update);
+        });
+        
+        // Init
+        update();
+
+
+        // --- 3. LOGIQUE DE COPIE ROBUSTE ---
+        const copyBtn = document.getElementById('copyBtn');
+        const wrapper = document.getElementById('signature-wrapper');
+
+        copyBtn.addEventListener('click', () => {
+            
+            const listener = (e) => {
+                e.preventDefault(); 
+                if (e.clipboardData) {
+                    // On injecte le HTML pur ET le texte
+                    e.clipboardData.setData('text/html', wrapper.innerHTML);
+                    e.clipboardData.setData('text/plain', wrapper.innerText);
+                }
+            };
+
+            document.addEventListener('copy', listener);
+            try {
+                document.execCommand('copy');
+                
+                const oldText = copyBtn.textContent;
+                copyBtn.textContent = "Copié ! ✅";
+                copyBtn.style.backgroundColor = "#10b981";
+                setTimeout(() => {
+                    copyBtn.textContent = oldText;
+                    copyBtn.style.backgroundColor = "";
+                }, 2000);
+
+            } catch (err) {
+                console.error("Erreur copie", err);
+                alert("Erreur : Sélectionnez la signature manuellement et copiez-la.");
+            }
+            document.removeEventListener('copy', listener);
+        });
+    });
+</script>
+
+</body>
+</html>
