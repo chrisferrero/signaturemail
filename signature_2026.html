@@ -331,6 +331,7 @@
             em: document.getElementById('email'),
             l1: document.getElementById('logo1Url'),
             l2: document.getElementById('logo2Url'),
+            l3: document.getElementById('logo3Url'),
             bannerToggle: document.getElementById('showBanner')
         };
 
@@ -376,7 +377,7 @@
             // Liens Logos
             display.l1Link.href = fields.l1.value || '#';
             display.l2Link.href = fields.l2.value || '#';
-            display.l3Link.href = fields.l2.value || '#';
+            display.l3Link.href = fields.l3.value || '#';
 
             // Bannière
             if (fields.bannerToggle.checked) {
